@@ -9,39 +9,28 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
 
-  color: var(--white);
+  background-color: transparent;
 
-  width: 100%;
+  min-width: 100px;
+  max-width: 150px;
+
   height: 100%;
   max-height: 50px;
 
-  background: ${(props) => props.color};
-  font-weight: 400;
+  color: ${(props) => props.color};
 
   border-radius: 8px;
-
   padding: 13px 40px 13px 40px;
 
-  > img, svg {
-    margin-right: 10px;
-
-    width: 16px;
-      height: 16px;
-
-    @media (min-width: 815px) {
-      width: 24px;
-      height: 24px;
-    }
-  }
-
   outline: 0;
-  border: 0;
+  border: 1px solid ${(props) => props.color};
 
   transition: 130ms all;
   cursor: pointer;
 
   &:not(:disabled):hover {
-    filter: brightness(0.9);
+    background-color: ${(props) => props.color};
+    color: var(--background);
   }
 
   &:disabled {
@@ -50,6 +39,7 @@ export const Button = styled.button`
   }
 
   font: 500 "Poppins", sans-serif;
+  white-space: nowrap;
 
   font-size: 14px;
   @media (min-width: 815px) {

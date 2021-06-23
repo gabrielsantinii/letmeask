@@ -1,0 +1,1 @@
+export { BoxArrowInRight, ClipboardPlus, Star } from '@styled-icons/bootstrap'

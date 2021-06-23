@@ -1,13 +1,9 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 
 import { Input } from "./styles";
 
-type propsType = {
-  placeholder: string;
-  type: string;
-};
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export const MainInput = ({ placeholder, type }: propsType) => {
-  return <Input placeholder={placeholder} type={type} />;
+export const MainInput = (props: InputProps) => {
+  return <Input {...props} />;
 };
-

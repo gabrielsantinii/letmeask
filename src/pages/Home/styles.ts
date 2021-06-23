@@ -2,42 +2,47 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  flex-direction: column;
+
+  @media (min-width: 1130px) {
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
   height: 100vh;
 `;
 
 export const Aside = styled.aside`
-  display: none;
+  background-color: var(--purple-500);
+  color: var(--white);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 120px 80px;
+  min-height: 100vh;
+
+  strong {
+    font: 400 36px "Poppins", sans-serif;
+    line-height: 42px;
+    margin-top: 16px;
+  }
+
+  p {
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 16px;
+    color: var(--gray-100);
+  }
+  img {
+    max-width: 320px;
+  }
+
+  width: 100%;
   @media (min-width: 1130px) {
     width: 47%;
-
-    background-color: var(--purple-500);
-    color: var(--white);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 120px 80px;
-
-    img {
-      max-width: 320px;
-    }
-
-    strong {
-      font: 400 36px "Poppins", sans-serif;
-      line-height: 42px;
-      margin-top: 16px;
-    }
-
-    p {
-      font-size: 24px;
-      line-height: 32px;
-      margin-top: 16px;
-      color: var(--gray-100);
-    }
   }
 `;
 
@@ -48,6 +53,8 @@ export const Main = styled.main`
 
   align-items: center;
   justify-content: center;
+
+  min-height: 100vh;
 
   @media (min-width: 1130px) {
     width: 48%;

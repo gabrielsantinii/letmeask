@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { title } from "process";
+import { FormEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import illustrationImg from "../../assets/images/illustration.svg";
 import logoImg from "../../assets/images/logo.svg";
@@ -6,10 +7,12 @@ import logoImg from "../../assets/images/logo.svg";
 import { MainButton } from "../../components/buttons/MainButton";
 import { MainInput } from "../../components/inputs/MainInput";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { pushNewRoom } from "../../services/firebase";
 
 import { Container, Aside, Main, Wrapper, Header, Footer } from "./styles";
 
 export const NewRoom = () => {
+  const [roomTitle, setRoomTitle] = useState("");
   const { user } = useAuthContext();
   const history = useHistory();
 
@@ -18,6 +21,19 @@ export const NewRoom = () => {
       history.push("/");
     }
   }, [user]);
+
+  async function createRoom(event: FormEvent) {
+    event.preventDefault();
+
+    if (roomTitle.trim() === "") {
+      return;
+    }
+
+    const createdRoom = await pushNewRoom({ roomTitle, userId: user?.id });
+    if (createdRoom?.key) {
+      history.push(`/rooms/${createdRoom?.key}`);
+    }
+  }
   return (
     <Container>
       <Aside>
@@ -32,9 +48,18 @@ export const NewRoom = () => {
             <h1>Crie uma nova sala</h1>
           </Header>
           <Footer>
-            <form>
-              <MainInput placeholder="Digite o código da sala" type="text" />
-              <MainButton color="var(--purple-500)" text="Criar sala" />
+            <form onSubmit={createRoom}>
+              <MainInput
+                placeholder="Digite o código da sala"
+                type="text"
+                value={roomTitle}
+                onChange={(event) => setRoomTitle(event.target.value)}
+              />
+              <MainButton
+                color="var(--purple-500)"
+                text="Criar sala"
+                type="submit"
+              />
             </form>
             <div style={{ display: "flex" }}>
               <span>Quer entrar em uma sala já existente? </span>
