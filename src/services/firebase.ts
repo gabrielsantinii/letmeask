@@ -100,10 +100,12 @@ type roomParams = {
 };
 
 const getQuestionsByRoom = async ({ roomKey }: roomParams): Promise<any> => {
+  let allQuesions;
   const roomRef = database.ref(`rooms/${roomKey}`);
 
-  roomRef.once("value", (room) => {
-    const roomValue = room.val();
+  await roomRef.once("value", async (room) => {
+    const roomValue = await room.val();
+
     const unparsedQuestions: QuestionType = roomValue.questions ?? {};
 
     const parsedQuestions = Object.entries(unparsedQuestions).map(
@@ -117,9 +119,19 @@ const getQuestionsByRoom = async ({ roomKey }: roomParams): Promise<any> => {
         };
       }
     );
-
+    allQuesions = parsedQuestions;
     console.log(parsedQuestions)
+    return parsedQuestions
   });
+  console.log(allQuesions);
 };
 
-export { firebase, auth, database, pushNewRoom, joinRoom, sendNewQuestion, getQuestionsByRoom };
+export {
+  firebase,
+  auth,
+  database,
+  pushNewRoom,
+  joinRoom,
+  sendNewQuestion,
+  getQuestionsByRoom,
+};

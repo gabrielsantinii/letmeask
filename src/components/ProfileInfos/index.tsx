@@ -9,11 +9,11 @@ type UserType = {
   };
 };
 
-export const ProfileInfos = ({ user }: UserType) => {
+export const ProfileInfos = (props: UserType) => {
   return (
     <Container>
-      <Avatar title={user.avatar} />
-      {user.name}
+      <Avatar title={props.user?.avatar} />
+      {props.user?.name}
     </Container>
   );
 };

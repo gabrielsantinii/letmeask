@@ -10,19 +10,63 @@ import { Container, Wrapper, QuestionsContainer } from "./styles";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { ProfileInfos } from "../../components/ProfileInfos";
 import { useState } from "react";
-import { getQuestionsByRoom, sendNewQuestion } from "../../services/firebase";
+import { database, sendNewQuestion } from "../../services/firebase";
 import { useEffect } from "react";
+import { useCallback } from "react";
+import { useMemo } from "react";
 
 type ParamsType = {
   roomId: string;
 };
 
+type ParsedQuestion = {
+  content: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  isHighlighted?: boolean;
+  isAnswered?: boolean;
+};
+
+type QuestionType = Record<string, ParsedQuestion>;
+
+type roomParams = {
+  roomKey: string;
+};
+
 export function Room() {
+  const [questions, setQuestions] = useState<ParsedQuestion[]>([]);
   const [newQuestion, setNewQuestion] = useState<string>("");
   const { roomId } = useParams<ParamsType>();
-  const { user } = useAuthContext();
+  const { user, signInWithGoogle } = useAuthContext();
 
   useEffect(() => {
+    const getQuestionsByRoom = async ({
+      roomKey,
+    }: roomParams): Promise<any> => {
+      const roomRef = database.ref(`rooms/${roomKey}`);
+
+      roomRef.on("value", async (room) => {
+        const roomValue = await room.val();
+
+        const unparsedQuestions: QuestionType = roomValue.questions ?? {};
+
+        const parsedQuestions = Object.entries(unparsedQuestions).map(
+          ([id, { content, isAnswered, isHighlighted, author }]) => {
+            return {
+              id,
+              content,
+              isAnswered,
+              isHighlighted,
+              author,
+            };
+          }
+        );
+        setQuestions(parsedQuestions);
+        return parsedQuestions;
+      });
+    };
     getQuestionsByRoom({ roomKey: roomId });
   }, [roomId]);
 
@@ -36,9 +80,16 @@ export function Room() {
     if (!user) {
       throw new Error("You need to log in to send a question.");
     }
+    console.log(user)
 
     sendNewQuestion({ newQuestion, user, roomKey: roomId });
     setNewQuestion("");
+  }
+
+  async function handleSignInWithGoogle() {
+    if (!user) {
+      await signInWithGoogle();
+    }
   }
 
   return (
@@ -62,7 +113,7 @@ export function Room() {
             ) : (
               <>
                 <span>Para enviar uma pergunta, </span>
-                <a>faça seu login.</a>
+                <a onClick={handleSignInWithGoogle}>faça seu login.</a>
               </>
             )}
 
@@ -75,19 +126,26 @@ export function Room() {
           </div>
         </form>
         <QuestionsContainer>
+          {questions.length > 0 &&
+            questions.map((quest) => {
+              console.log('map: ', quest)
+              return (
+                <Card
+                  content={quest.content}
+                  author={quest?.author}
+                  likes={10}
+                />
+              );
+            })}
+
           <Card
             content="Olá, eu gostaria de saber como criar um componente funcional dentro do React e se existe diferença na perfomance entre um componente com classes."
-            user={{ name: "Gabriel Santini", avatar: undefined }}
+            author={{ name: "Gabriel Santini", avatar: undefined }}
             likes={10}
           />
           <Card
             content="Olá, eu gostaria de saber como criar um componente funcional dentro do React e se existe diferença na perfomance entre um componente com classes."
-            user={{ name: "Gabriel Santini", avatar: undefined }}
-            likes={10}
-          />
-          <Card
-            content="Olá, eu gostaria de saber como criar um componente funcional dentro do React e se existe diferença na perfomance entre um componente com classes."
-            user={{ name: "Gabriel Santini", avatar: undefined }}
+            author={{ name: "Gabriel Santini", avatar: undefined }}
             likes={10}
           />
         </QuestionsContainer>

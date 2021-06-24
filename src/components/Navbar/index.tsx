@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
   const { roomId } = useParams<ParamsType>();
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(roomId)
+    navigator.clipboard.writeText(`http://localhost:3000/rooms/${roomId}`)
   }
   return (
     <Container>

@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: center;
 
   width: 100%;
-  height: 10.85%;
+  min-height: 10.85%;
   max-height: 89px;
 
   border-bottom: 2px solid var(--gray-75);

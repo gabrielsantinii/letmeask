@@ -11,19 +11,19 @@ type User = {
 
 type CardPropsType = {
   content: string;
-  user: User;
+  author: User;
   likes: number;
 };
 
-export const Card = ({ content, user, likes }: CardPropsType) => {
+export const Card = (props: CardPropsType) => {
   return (
     <Container>
-      <span>{content}</span>
+      <span>{props?.content}</span>
       <Footer>
-        <ProfileInfos user={user} />
+        <ProfileInfos user={props?.author} />
         <IconsWrapper>
           <div className="icon-column">
-            {likes}
+            {props?.likes}
             <Star />
           </div>
         </IconsWrapper>
