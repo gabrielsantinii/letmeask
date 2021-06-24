@@ -45,21 +45,4 @@ export const IconsWrapper = styled.div`
   }
 `;
 
-export const ProfileInfos = styled.div`
-  display: flex;
-  align-items: center;
 
-  font: 400 14px "Poppins", sans-serif;
-  color: var(--gray-300);
-`;
-
-export const Avatar = styled.div`
-  background: ${(props) =>
-    props.title ? `url(${props.title})` : "var(--purple-500)"};
-
-  width: 32px;
-  height: 32px;
-
-  border-radius: 50%;
-  margin-right: 8px;
-`;

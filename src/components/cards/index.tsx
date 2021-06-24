@@ -1,13 +1,8 @@
 import React from "react";
 import { Star } from "../../styles/Icons";
+import { ProfileInfos } from "../ProfileInfos";
 
-import {
-  Container,
-  Footer,
-  ProfileInfos,
-  IconsWrapper,
-  Avatar,
-} from "./styles";
+import { Container, Footer, IconsWrapper } from "./styles";
 
 type User = {
   name: string | undefined;
@@ -25,10 +20,7 @@ export const Card = ({ content, user, likes }: CardPropsType) => {
     <Container>
       <span>{content}</span>
       <Footer>
-        <ProfileInfos>
-          <Avatar title={user.avatar} />
-          {user?.name}
-        </ProfileInfos>
+        <ProfileInfos user={user} />
         <IconsWrapper>
           <div className="icon-column">
             {likes}
