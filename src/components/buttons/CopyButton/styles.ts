@@ -13,13 +13,11 @@ export const ClipButton = styled.div`
 
   transition: 130ms all;
   cursor: pointer;
-  > span {
-    display: flex;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 
-    padding: 13px 20px 13px 20px;
+  white-space: nowrap;
+  > .text {
+    display: flex;
+    padding: 20px 10px 20px 10px;
 
     font: 500 14px "Poppins", sans-serif;
 
@@ -36,7 +34,7 @@ export const IconWrapper = styled.div`
 
   background: ${(props) => props.color};
 
-  min-width: 27.5%;
+  min-width: 50px;
   max-width: 45px;
   min-height: 50px;
 

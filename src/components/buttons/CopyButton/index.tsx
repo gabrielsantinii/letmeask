@@ -25,7 +25,7 @@ export const CopyButton = ({
       <IconWrapper color={color}>
         <ClipboardPlus />
       </IconWrapper>
-      <span>{text}</span>
+      <div className="text">{text}</div>
     </ClipButton>
   );
 };
