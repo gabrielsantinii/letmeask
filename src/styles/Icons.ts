@@ -1,1 +1,1 @@
-export { BoxArrowInRight, ClipboardPlus, Star } from '@styled-icons/bootstrap'
+export { BoxArrowInRight, ClipboardPlus, Star, Check, StarFill } from '@styled-icons/bootstrap'

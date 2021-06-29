@@ -10,7 +10,7 @@ import { Container, Wrapper, QuestionsContainer } from "./styles";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { ProfileInfos } from "../../components/ProfileInfos";
 import { useState } from "react";
-import { sendNewQuestion } from "../../services/firebase";
+import { database, sendNewQuestion } from "../../services/firebase";
 import { useRoom } from "../../hooks/useRoom";
 
 type ParamsType = {
@@ -85,9 +85,14 @@ export function Room() {
             questions.map((quest) => {
               return (
                 <Card
+                  questionId={quest.id}
+                  key={quest.content}
                   content={quest.content}
                   author={quest?.author}
-                  likes={10}
+                  likes={quest.likes}
+                  hasLiked={quest.likes?.some(
+                    (val) => val.authorId === user?.id
+                  )}
                 />
               );
             })}

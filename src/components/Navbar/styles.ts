@@ -15,16 +15,22 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  width: 77.77%;
-  height: 10.85%;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 50px;
+  width: 90%;
+  max-width: 90%;
 
   > img {
-    max-width: 100.2px;
+    max-width: 50px;
   }
+  @media (min-width: 1005px) {
+    width: 77.77%;
+    height: 10.85%;
+    max-width: none;
+  }
+  
 
   > .right-side {
     margin-left: auto;

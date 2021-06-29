@@ -38,8 +38,7 @@ body {
         --purple-800: #6F48C9;
         --purple-opacity: rgba(116, 89, 217, 0.2);
 
-        --red-500: rgba(234, 67, 53, 1);
-        --pink-500: rgba(229, 89, 249, 1);
+        --red-500: #EA4335;
         
     }
 

@@ -13,8 +13,8 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   margin-top: 64px;
   align-self: center;
-
-  width: 55.55%;
+  
+  width: 90%;
   max-width: 800px;
 
   display: flex;
@@ -33,13 +33,13 @@ export const Wrapper = styled.div`
       padding: 8px 16px 8px 16px;
       border-radius: 50px;
 
-      background: var(--pink-500);
+      background: var(--purple-500);
       color: var(--white);
     }
   }
 
   > form {
-    display: flex;
+    display: block;
     flex-direction: column;
     
     margin-top: 24px;
@@ -58,7 +58,7 @@ export const Wrapper = styled.div`
 
       > a {
         margin-left: 6px;
-        color: var(--pink-500);
+        color: var(--purple-500);
         transition: 180ms all;
 
         cursor: pointer;
@@ -78,7 +78,7 @@ export const Wrapper = styled.div`
 `;
 
 export const QuestionsContainer = styled.div`
-  margin-top: 32px;
+margin-top: auto;
 
   display: flex;
   flex-direction: column;

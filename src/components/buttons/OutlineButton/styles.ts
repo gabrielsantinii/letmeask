@@ -20,8 +20,10 @@ export const Button = styled.button`
   color: ${(props) => props.color};
 
   border-radius: 8px;
-  padding: 13px 40px 13px 40px;
-
+  padding: 6px 20px 6px 20px;
+  @media (min-width: 1005px) {
+    padding: 13px 40px 13px 40px;
+  }
   outline: 0;
   border: 1px solid ${(props) => props.color};
 

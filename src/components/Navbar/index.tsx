@@ -1,5 +1,6 @@
 import React from "react";
 import logoImg from "../../assets/images/logo.svg";
+import { Toaster } from 'react-hot-toast'
 
 import { Container, Wrapper } from "./styles";
 import { OutlineButton } from "../buttons/OutlineButton";
@@ -11,11 +12,9 @@ type ParamsType = {
 };
 
 export function Navbar({ roomId, isAdmin = false }: ParamsType) {
-  function copyToClipboard() {
-    navigator.clipboard.writeText(`http://localhost:3000/rooms/${roomId}`);
-  }
   return (
     <Container>
+      <Toaster />
       <Wrapper>
         <img src={logoImg} alt="Letmeask" />
 
@@ -23,7 +22,7 @@ export function Navbar({ roomId, isAdmin = false }: ParamsType) {
           <CopyButton
             text={`Sala #${roomId}`}
             color="var(--purple-500)"
-            onClick={copyToClipboard}
+            copyText={`http://localhost:3000/rooms/${roomId}`}
           />
           {isAdmin && (
             <OutlineButton text="Encerrar sala" color="var(--purple-500)" />

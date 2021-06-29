@@ -120,10 +120,40 @@ const getQuestionsByRoom = async ({ roomKey }: roomParams): Promise<any> => {
       }
     );
     allQuesions = parsedQuestions;
-    console.log(parsedQuestions)
-    return parsedQuestions
+    console.log(parsedQuestions);
+    return parsedQuestions;
   });
   console.log(allQuesions);
+};
+
+type LikeType = {
+  id: string;
+  authorId: string;
+}
+
+const likeQuestion = async (
+  questionId: string,
+  roomId: string,
+  userId: string | undefined,
+  likes?: LikeType[]
+) => {
+  try {
+    if (likes) {
+      const likeInfos = likes.find(val => val.authorId === userId)
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeInfos?.id}`)
+        .remove();
+    }
+
+    else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        authorId: userId,
+      });
+    }
+
+  } catch (err) {
+    throw new Error("Can not like the question.");
+  }
 };
 
 export {
@@ -134,4 +164,5 @@ export {
   joinRoom,
   sendNewQuestion,
   getQuestionsByRoom,
+  likeQuestion,
 };

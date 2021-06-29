@@ -31,7 +31,30 @@ export const IconsWrapper = styled.div`
   margin-left: auto;
 
   .icon-column {
+    display: flex;
+    align-items: flex-end;
+
+    outline: 0;
+    border: none;
+
+    background: transparent;
+
+    &:not(:disabled) {
+      &:hover {
+        filter: brightness(0.8);
+        cursor: pointer;
+      }
+    }
+
     font: 400 16px "Poppins", sans-serif;
+    color: var(--gray-200);
+    &.active {
+      color: var(--purple-500);
+      svg,
+      img {
+        fill: var(--purple-500);
+      }
+    }
     > svg,
     img {
       width: 24px;
@@ -41,8 +64,5 @@ export const IconsWrapper = styled.div`
     }
     display: flex;
     align-items: center;
-    color: var(--gray-200);
   }
 `;
-
-
